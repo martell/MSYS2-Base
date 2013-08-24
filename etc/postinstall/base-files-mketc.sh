@@ -8,7 +8,7 @@
 
 # base-files version 4.1-1
 
-# Create symbolic links from some /etc files to the Windows equivalents
+# Create copies from some /etc files to the Windows equivalents
 # Set perms to /tmp directory
 
 FILES="hosts protocols services networks"
@@ -18,7 +18,7 @@ WINETC="${WINSYS32HOME}\\drivers\\etc"
 
 if [ ! -d "${WINETC}" ]; then
   echo "Directory ${WINETC} does not exist; exiting" >&2
-  echo "If directory name is garbage you need to update your cygwin package" >&2
+  echo "If directory name is garbage you need to update your msys package" >&2
   exit 1
 fi
 
@@ -28,7 +28,7 @@ do
   then
     # Windows only uses the first 8 characters
     WFILE="${WINETC}\\$(expr substr "${mketc}" 1 8)"
-    /usr/bin/ln -s -v "${WFILE}" "/etc/${mketc}"
+    /usr/bin/cp -p -v "${WFILE}" "/etc/${mketc}"
   fi
 done
 

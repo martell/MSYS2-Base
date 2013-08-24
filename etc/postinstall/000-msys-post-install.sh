@@ -51,8 +51,8 @@ then
 # For a description of the file format, see the Users Guide
 # http://cygwin.com/cygwin-ug-net/using.html#mount-table
 
-# This is default anyway:
-none /cygdrive cygdrive binary,posix=0,user 0 0
+# DO NOT REMOVE NEXT LINE. It remove cygdrive prefix from path
+none / cygdrive binary,posix=0,noacl,user 0 0
 EOF
 fi
 
@@ -86,6 +86,33 @@ then
     exit 1
   fi
 fi
+
+# Create default /etc/passwd and /etc/group files
+created_passwd=no
+created_group=no
+
+if [ ! -e /etc/passwd -a ! -L /etc/passwd ] ; then
+  mkpasswd -l -c > /etc/passwd
+  chmod 644 /etc/passwd
+  created_passwd=yes
+fi
+
+if [ ! -e /etc/group -a ! -L /etc/group ] ; then
+  mkgroup -l -c > /etc/group
+  chmod 644 /etc/group
+  created_group=yes
+fi
+
+cp -fp /etc/group /tmp/group.mkgroup && \
+( [ -w /etc/group ] || chmod --silent a+w /etc/group ; ) && \
+echo "root:S-1-5-32-544:0:" > /etc/group && \
+sed -e '/root:S-1-5-32-544:0:/d' /tmp/group.mkgroup >> /etc/group && \
+chmod --silent --reference=/etc/passwd /etc/group
+rm -f /tmp/group.mkgroup
+
+# Deferred to be sure root group entry exists
+[ "$created_passwd" = "yes" ] && chgrp --silent root /etc/passwd
+[ "$created_group" = "yes"  ] && chgrp --silent root /etc/group
 
 # Check for ${DEVDIR} directory
 
@@ -179,32 +206,5 @@ fi
 
 # Create /etc/mtab as symlink to /proc/mounts
 [ ! -L "${MTAB}" ] && ln -sf /proc/mounts ${MTAB}
-
-# Create default /etc/passwd and /etc/group files
-created_passwd=no
-created_group=no
-
-if [ ! -e /etc/passwd -a ! -L /etc/passwd ] ; then
-  mkpasswd -l -c > /etc/passwd
-  chmod 644 /etc/passwd
-  created_passwd=yes
-fi
-
-if [ ! -e /etc/group -a ! -L /etc/group ] ; then
-  mkgroup -l -c > /etc/group
-  chmod 644 /etc/group
-  created_group=yes
-fi
-
-cp -fp /etc/group /tmp/group.mkgroup && \
-( [ -w /etc/group ] || chmod --silent a+w /etc/group ; ) && \
-echo "root:S-1-5-32-544:0:" > /etc/group && \
-sed -e '/root:S-1-5-32-544:0:/d' /tmp/group.mkgroup >> /etc/group && \
-chmod --silent --reference=/etc/passwd /etc/group
-rm -f /tmp/group.mkgroup
-
-# Deferred to be sure root group entry exists
-[ "$created_passwd" = "yes" ] && chgrp --silent root /etc/passwd
-[ "$created_group" = "yes"  ] && chgrp --silent root /etc/group
 
 exit 0
