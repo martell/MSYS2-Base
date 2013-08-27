@@ -158,43 +158,43 @@ export TERM=xterm
 #
 # If this message keeps appearing and you are sure it's a mistake (ie, don't
 #   email about it!), comment out the test below.
-# case "$(id -ng)" in
-# mkpasswd )
-  # echo "Your group is currently \"mkpasswd\".  This indicates that your"
-  # echo "gid is not in /etc/group and your uid is not in /etc/passwd."
-  # echo
-  # echo "The /etc/passwd (and possibly /etc/group) files should be rebuilt."
-  # echo "See the man pages for mkpasswd and mkgroup then, for example, run"
-  # echo
-  # echo "mkpasswd -l [-d] > /etc/passwd"
-  # echo "mkgroup  -l [-d] > /etc/group"
-  # echo
-  # echo "Note that the -d switch is necessary for domain users."
-  # ;;
-# passwd/group_GID_clash* )
-  # echo "Your group is currently \"passwd/group_GID_clash(gid/pgsid)\".  This"
-  # echo "indicates that your gid is not in /etc/group, but the pgsid (primary "
-  # echo "group associated with your SID) is in /etc/group."
-  # echo
-  # echo "The /etc/passwd (and possibly /etc/group) files should be rebuilt."
-  # echo "See the man pages for mkpasswd and mkgroup then, for example, run"
-  # echo
-  # echo "mkpasswd -l [-d] > /etc/passwd"
-  # echo "mkgroup  -l [-d] > /etc/group"
-  # echo
-  # echo "Note that the -d switch is necessary for domain users."
-  # ;;
-# mkgroup )
-  # echo "Your group is currently \"mkgroup\".  This indicates that neither"
-  # echo "your gid nor your pgsid (primary group associated with your SID)"
-  # echo "is in /etc/group."
-  # echo
-  # echo "The /etc/group (and possibly /etc/passwd) files should be rebuilt."
-  # echo "See the man pages for mkpasswd and mkgroup then, for example, run"
-  # echo
-  # echo "mkpasswd -l [-d] > /etc/passwd"
-  # echo "mkgroup  -l [-d] > /etc/group"
-  # echo
-  # echo "Note that the -d switch is necessary for domain users."
-  # ;;
-# esac
+case "$(id -ng)" in
+mkpasswd )
+  echo "Your group is currently \"mkpasswd\".  This indicates that your"
+  echo "gid is not in /etc/group and your uid is not in /etc/passwd."
+  echo
+  echo "The /etc/passwd (and possibly /etc/group) files should be rebuilt."
+  echo "See the man pages for mkpasswd and mkgroup then, for example, run"
+  echo
+  echo "mkpasswd -l [-d] > /etc/passwd"
+  echo "mkgroup  -l [-d] > /etc/group"
+  echo
+  echo "Note that the -d switch is necessary for domain users."
+  ;;
+passwd/group_GID_clash* )
+  echo "Your group is currently \"passwd/group_GID_clash(gid/pgsid)\".  This"
+  echo "indicates that your gid is not in /etc/group, but the pgsid (primary "
+  echo "group associated with your SID) is in /etc/group."
+  echo
+  echo "The /etc/passwd (and possibly /etc/group) files should be rebuilt."
+  echo "See the man pages for mkpasswd and mkgroup then, for example, run"
+  echo
+  echo "mkpasswd -l [-d] > /etc/passwd"
+  echo "mkgroup  -l [-d] > /etc/group"
+  echo
+  echo "Note that the -d switch is necessary for domain users."
+  ;;
+mkgroup )
+  echo "Your group is currently \"mkgroup\".  This indicates that neither"
+  echo "your gid nor your pgsid (primary group associated with your SID)"
+  echo "is in /etc/group."
+  echo
+  echo "The /etc/group (and possibly /etc/passwd) files should be rebuilt."
+  echo "See the man pages for mkpasswd and mkgroup then, for example, run"
+  echo
+  echo "mkpasswd -l [-d] > /etc/passwd"
+  echo "mkgroup  -l [-d] > /etc/group"
+  echo
+  echo "Note that the -d switch is necessary for domain users."
+  ;;
+esac
