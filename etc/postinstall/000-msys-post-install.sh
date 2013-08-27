@@ -92,13 +92,13 @@ created_passwd=no
 created_group=no
 
 if [ ! -e /etc/passwd -a ! -L /etc/passwd ] ; then
-  mkpasswd -l -c > /etc/passwd
+  mkpasswd.exe -l -c > /etc/passwd
   chmod 644 /etc/passwd
   created_passwd=yes
 fi
 
 if [ ! -e /etc/group -a ! -L /etc/group ] ; then
-  mkgroup -l -c > /etc/group
+  mkgroup.exe -l -c > /etc/group
   chmod 644 /etc/group
   created_group=yes
 fi
