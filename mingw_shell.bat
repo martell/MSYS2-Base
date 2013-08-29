@@ -25,8 +25,8 @@ goto startmode
 
 :startmode
 cd %WD%..\lib\ConsoleZ
-set MSYSTEM=MSYS
-start console -t "MSys2"
+set MSYSTEM=MINGW
+start console -t "MinGW"
 exit
 
 :EOF
