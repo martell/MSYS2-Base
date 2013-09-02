@@ -21,12 +21,26 @@ rem ember that we get here even in command.com.
 
 if NOT EXIST %WD%msys-2.0.dll set WD=%~dp0\bin\
 
-goto startmode
-
-:startmode
-cd %WD%..\lib\ConsoleZ
 set MSYSTEM=MSYS
+set MSYSCON=mintty.exe
+if "x%1" == "x-consolez" set MSYSCON=console.exe
+if "x%1" == "x-mintty" set MSYSCON=mintty.exe
+
+if "x%MSYSCON%" == "xmintty.exe" goto startmintty
+if "x%MSYSCON%" == "xconsole.exe" goto startconsolez
+
+:startmintty
+if NOT EXIST %WD%mintty.exe goto startsh
+start %WD%mintty -i /msys.ico -
+exit
+
+:startconsolez
+cd %WD%..\lib\ConsoleZ
 start console -t "MSys2"
+exit
+
+:startsh
+start %WD%sh --login -i
 exit
 
 :EOF
