@@ -198,3 +198,21 @@ mkgroup )
   echo "Note that the -d switch is necessary for domain users."
   ;;
 esac
+
+if [ ! -f /etc/postinstall/postinstall.marker  ]; then
+  clear
+  echo
+  echo
+  echo "###################################################################"
+  echo "#                                                                 #"
+  echo "#                                                                 #"
+  echo "#                   C   A   U   T   I   O   N                     #"
+  echo "#                                                                 #"
+  echo "#                  This is first start of MSYS2.                  #"
+  echo "#       You MUST restart shell to apply necessary actions.        #"
+  echo "#                                                                 #"
+  echo "#                                                                 #"
+  echo "###################################################################"
+  
+  touch /etc/postinstall/postinstall.marker
+fi
