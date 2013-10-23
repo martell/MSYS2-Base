@@ -18,7 +18,7 @@ for curr_dir in /bin /etc /include /${_arch}-pc-msys /include /lib /libexec /sbi
 done
 
 if [ -n "$_dirs" ]; then
-  _compress_cmd="/bin/tar --transform='s/:/_/g' -cvJf /tmp/${_filename} $_dirs -X /etc/compress_exclude"
+  _compress_cmd="/bin/tar --transform='s/:/_/g' --dereference --hard-dereference -cvJf /tmp/${_filename} $_dirs -X /etc/compress_exclude"
   cd /
   eval ${_compress_cmd} | tee $_log 2>&1
   _result=$?
